@@ -1,0 +1,88 @@
+﻿@page "/SquareRooting"
+@inject IHttpClientFactory _clientFactory
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <h3>Square Rooting</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm" style="padding-bottom: 2rem;">
+            <EditForm class="form-inline my-2" Model="@newSquareRootModel" OnValidSubmit="Operation" OnInvalidSubmit="InvalidForm">
+                <InputNumber class="form-control mx-2" @bind-Value="newSquareRootModel.Number" @attributes="inputAttributes" ParsingErrorMessage="Invalid input (hint: <integer number>)" />
+                <button class="btn btn-outline-primary" type="submit">=</button>
+                <label class="form-control mx-2" AutoSize="true">@display</label>
+            </EditForm>
+            @if (!String.IsNullOrWhiteSpace(errorMessage))
+            {
+                <p>
+                    <div class="alert alert-danger">
+                        @errorMessage
+                    </div>
+                </p>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public Dictionary<string, object> inputAttributes { get; set; } =
+    new Dictionary<string, object>()
+    {
+            { "required", "required" },
+            { "style", "width:5em" }
+    };
+
+
+    private void InvalidForm(EditContext editContext)
+    {
+        display = "Overflow";
+        errorMessage = String.Join(",", editContext.GetValidationMessages().ToArray());
+    }
+
+    private SquareRootModel newSquareRootModel = new SquareRootModel();
+
+    private string errorMessage;
+    private string display;
+
+    private async Task Operation()
+    {
+        try
+        {
+            errorMessage = "";
+            display = "";
+
+            var client = _clientFactory.CreateClient("Calculator");
+            client.BaseAddress = new Uri(Startup.BaseAddress);
+
+            var resultOperation = await PagesCommon.ExecuteOperation(newSquareRootModel, client);
+            if (resultOperation is SquareRootResultModel)
+            {
+                var resultModel = (SquareRootResultModel)resultOperation;
+                display = resultModel.Square.ToString();
+            }
+            else
+            {
+                //Calculator style "message on display"
+                var errorResponseModel = (ErrorResponseModel)resultOperation;
+                display = errorResponseModel.ErrorCode;
+                errorMessage = errorResponseModel.ErrorMessage;
+            }
+        }
+        catch (FormatException)
+        {
+            errorMessage = "Invalid input (hint: <integer number>)";
+        }
+        catch (OverflowException)
+        {
+            display = "Overflow";
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+    }
+}

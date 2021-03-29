@@ -1,0 +1,68 @@
+﻿@page "/Settings"
+@inject IHttpClientFactory _clientFactory
+
+<h3>Settings</h3>
+
+<EditForm class="form-inline my-2" Model="@client" OnValidSubmit="Operation">
+    <InputText class="form-control mx-2" @bind-Value="baseAddress" @attributes="inputAttributes" />
+    <button class="btn btn-outline-primary" type="submit">Change Server</button>
+    @if (ShowOkTick)
+    {
+        <div style="margin-left:1em">
+            <span class="oi oi-check" aria-hidden="true"></span>
+        </div>
+    }
+</EditForm>
+@if (!String.IsNullOrWhiteSpace(errorMessage))
+{
+    <p>
+        <div class="alert alert-danger">
+            @errorMessage
+        </div>
+    </p>
+}
+
+
+
+@code {
+
+    [Parameter]
+    public Dictionary<string, object> inputAttributes { get; set; } =
+    new Dictionary<string, object>()
+    {
+            { "required", "required" },
+            { "size", "45" }
+        };
+
+
+    private string errorMessage;
+    private bool ShowOkTick = false;
+
+    private HttpClient client;
+    private string baseAddress;
+
+    protected override void OnInitialized()
+    {
+        client = _clientFactory.CreateClient("Calculator");
+        client.BaseAddress = new Uri(Startup.BaseAddress);
+        baseAddress = Startup.BaseAddress;
+        ShowOkTick = false;
+    }
+
+    private void Operation()
+    {
+        ShowOkTick = false;
+        errorMessage = "";
+        try
+        {
+            client.BaseAddress = new Uri(baseAddress);
+            Startup.BaseAddress = baseAddress;
+            ShowOkTick = true;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+        }
+
+    }
+}

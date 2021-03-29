@@ -1,0 +1,104 @@
+﻿@page "/Journal"
+@inject IHttpClientFactory _clientFactory
+
+<h3>Journal</h3>
+
+<EditForm class="form-inline my-2" Model="@newJournalModel" OnValidSubmit="OperationAsync">
+    <InputText class="form-control mx-2" @bind-Value="newJournalModel.Id" @attributes="inputAttributes" />
+    <button class="btn btn-outline-primary" type="submit">Retrieve Journal</button>
+    &nbsp;
+    <button class="btn btn-outline-primary" type="submit" @onclick="@(() => ChangeUserDefinedId())">New Journal Id</button>
+</EditForm>
+@if (!String.IsNullOrWhiteSpace(errorMessage))
+{
+    <p>
+        <div class="alert alert-danger">
+            @errorMessage
+        </div>
+    </p>
+}
+else if (resultModel != null)
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Operation</th>
+                <th>Calculation</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in resultModel.Operations)
+            {
+                <tr>
+                    <td>@entry.Date</td>
+                    <td>@entry.OperationName</td>
+                    <td>@entry.Calculation</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+@code {
+
+    [Parameter]
+    public Dictionary<string, object> inputAttributes { get; set; } =
+    new Dictionary<string, object>()
+    {
+            { "required", "required" },
+            { "size", "45" }
+                    };
+
+
+    private JournalModel newJournalModel = new() { Id = Startup.UserDefinedId };
+    private JournalResultModel resultModel;
+
+    private string errorMessage;
+    private bool userDefinedIdChanged = false;
+
+    private void ChangeUserDefinedId()
+    {
+        Startup.UserDefinedId = Guid.NewGuid().ToString();
+        newJournalModel.Id = Startup.UserDefinedId;
+        userDefinedIdChanged = true;
+    }
+
+
+    private async Task OperationAsync()
+    {
+        if (!userDefinedIdChanged)
+        {
+            try
+            {
+                errorMessage = "";
+
+                var client = _clientFactory.CreateClient("Calculator");
+                client.BaseAddress = new Uri(Startup.BaseAddress);
+
+                var resultOperation = await PagesCommon.ExecuteOperation(newJournalModel, client);
+                if (resultOperation is JournalResultModel)
+                {
+                    resultModel = (JournalResultModel)resultOperation;
+                    if (resultModel != null && resultModel.Operations.Count() == 0) { errorMessage = "No entries for given Id"; }
+                }
+                else
+                {
+                    var errorResponseModel = (ErrorResponseModel)resultOperation;
+                    errorMessage = errorResponseModel.ErrorMessage;
+                }
+            }
+            catch (FormatException)
+            {
+                errorMessage = "Invalid input";
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Error: {ex.Message}";
+            }
+        }
+        userDefinedIdChanged = false;
+    }
+}
