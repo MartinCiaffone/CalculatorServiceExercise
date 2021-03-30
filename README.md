@@ -120,6 +120,16 @@ Can be used to change the URL of the service. Its initial value is prefilled for
 
 # Solution Structure Detail
 
+Note on deployment: *When publishing to an Azure target, the .pubxml file contains your Azure subscription identifier. With that target type, adding this file to source control is discouraged.* Both Server and Client have publishing profiles generated on the solution.
+
+Client goes to:
+[Calculator Service Client](http://calculatorservicetestclient.azurewebsites.net/)
+
+Server goes to:
+[Calculator Service Server](https://calculatorserviceserver.azurewebsites.net/)
+
+(Those links will be available for a limited time)
+
 
 ## CalculatorService.Server
 
