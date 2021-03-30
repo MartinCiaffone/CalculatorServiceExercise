@@ -159,9 +159,9 @@ Reference Links:
 
 [serilog/serilog-settings-configuration: A Serilog configuration provider that reads from Microsoft.Extensions.Configuration (github.com)](https://github.com/serilog/serilog-settings-configuration)
 
-## Implementation details
+### Implementation details
 
-### Models:
+#### Models:
 
 We declared a class model for the different services, like AdditionModel class for /Add.
 
@@ -174,7 +174,7 @@ Models for Addition and Multiply, that get an array of values on the request hav
 
 ##
 
-### Controllers:
+#### Controllers:
 
 We have API controllers for each route, and those controllers inherits from a &quot;CommonController&quot; class that inherits from the AspNetCore.Mvc ControllerBase.
 
@@ -188,7 +188,7 @@ The actual arithmetic operation is done by the calling CalculatorService.Library
 
 ##
 
-### Logging:
+#### Logging:
 
 Is implemented using Serilog library ([https://serilog.net/](https://serilog.net/))
 
@@ -202,7 +202,7 @@ Note on usage: The logger is injected on the controllers following the common pr
 
 ##
 
-### API Versioning:
+#### API Versioning:
 
 Is provided by the Microsoft.AspNetCore.Mvc.Versioning package.
 
@@ -213,7 +213,7 @@ Implement different versions can be done by annotating the controllers and actio
 
 ##
 
-### CalculatorService.ClientB
+## CalculatorService.ClientB
 
 Blazor App – .NET 5.0
 
@@ -221,6 +221,9 @@ Packages
 
 - Nuget System.Net.Http.Json
 
+### Implementation details
+**We will not detail the implementation for the client in this first version since it is not the central object of the exercise.
+It is a very simple web application made using Blazor components. In the Home you can see the use of the components (one per operation) combined in a common page.**
 
 ## CalculatorService.Library
 
@@ -231,6 +234,10 @@ Packages
 - None
 
 It has an associated project ClientService.LibraryTests
+
+### Implementation details
+**This library is very small, with two classes, one for math operations and one for implementing the Journal.
+The Journal is not persistent. It has been implemented as an in memory List<T>**
 
 ## ClientService.LibraryTests
 
@@ -246,3 +253,6 @@ Packages
 Project References
 
 - ClientService.Library
+
+### Implementation details
+*Here we provide some unit tests on the calculation methods as a testing example.
