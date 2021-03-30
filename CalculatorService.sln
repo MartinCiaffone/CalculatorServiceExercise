@@ -7,9 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorService.Server", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorService.ClientB", "CalculatorService.ClientB\CalculatorService.ClientB.csproj", "{36A7BBA3-DE2E-4BD8-8C93-CB92359D5C12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorService.Library", "CalculatorService.Library\CalculatorService.Library.csproj", "{E344A6D3-380D-446D-9958-078225E17271}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorService.Library", "CalculatorService.Library\CalculatorService.Library.csproj", "{E344A6D3-380D-446D-9958-078225E17271}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorService.LibraryTests", "CalculatorService.LibraryTests\CalculatorService.LibraryTests.csproj", "{50C75F62-D0CF-43B1-BF6A-F62AA90ECB61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorService.LibraryTests", "CalculatorService.LibraryTests\CalculatorService.LibraryTests.csproj", "{50C75F62-D0CF-43B1-BF6A-F62AA90ECB61}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8B0EE838-97FF-4EA8-8CDB-DBDFC607F60B}"
+	ProjectSection(SolutionItems) = preProject
+		2021.01.15-Code.Challenge-Calculator.Service.pdf = 2021.01.15-Code.Challenge-Calculator.Service.pdf
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
