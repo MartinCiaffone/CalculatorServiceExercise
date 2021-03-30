@@ -159,13 +159,68 @@ Reference Links:
 
 [serilog/serilog-settings-configuration: A Serilog configuration provider that reads from Microsoft.Extensions.Configuration (github.com)](https://github.com/serilog/serilog-settings-configuration)
 
-## CalculatorService.ClientB
+## Implementation details
+
+### Models:
+
+We declared a class model for the different services, like AdditionModel class for /Add.
+
+Also we have another class model for the request response, like AdditionResultModel class
+
+And there is an ErrorResponseModel in line with the exercise specifications.
+
+Models for Addition and Multiply, that get an array of values on the request have some extra annotations to support XML encoding, not needed on the other models.
+
+
+##
+
+### Controllers:
+
+We have API controllers for each route, and those controllers inherits from a &quot;CommonController&quot; class that inherits from the AspNetCore.Mvc ControllerBase.
+
+This way we avoid to repeat much of the code logic on every controller.
+
+On this common controller we have the journal entry processing by the injected Journal class from the CalculatorService.Library and all the exceptions processing.
+
+We send exceptions information to the client using the ErrorResponseModel.
+
+The actual arithmetic operation is done by the calling CalculatorService.Library methods and this is invoked on each individual controller.
+
+##
+
+### Logging:
+
+Is implemented using Serilog library ([https://serilog.net/](https://serilog.net/))
+
+Serilog functionality is defined on the appsettings.json file under the &quot;Serilog&quot;: name.
+
+Logs are sent to the console and to a file located on a server subdirectory &quot;Logs&quot;
+
+With daily rolling interval, the log files are named like: CalculatorService.Server.Log\&lt;yyyyMMdd\&gt;.json
+
+Note on usage: The logger is injected on the controllers following the common practice, but for logging events at application startup, an instance is created on the Main method of the Program class.
+
+##
+
+### API Versioning:
+
+Is provided by the Microsoft.AspNetCore.Mvc.Versioning package.
+
+Is added to the service collection on the Startup class with default values.
+
+Implement different versions can be done by annotating the controllers and actions with appropriate attributes like `[ApiVersion("1.0", Deprecated = true)]` or `[MapToApiVersion("3.0")]` etc.
+
+
+##
+
+### CalculatorService.ClientB
 
 Blazor App – .NET 5.0
 
 Packages
 
 - Nuget System.Net.Http.Json
+
 
 ## CalculatorService.Library
 
