@@ -75,7 +75,8 @@ Another way to test the API is using curl, example:
 
 
 ```
-curl -X POST "http://localhost:16834/calculator/add" -H  "accept: */*" -H  "Content-Type: application/xml" -d "<?xml version=\"1.0\" encoding=\"UTF-8\"?><AdditionModel>\t<Addends>1</Addends>\t<Addends>2</Addends>\t<Addends>3</Addends>\t<Addends>4</Addends>\t<Addends>5</Addends></AdditionModel>"```
+curl -X POST "http://localhost:16834/calculator/add" -H  "accept: */*" -H  "Content-Type: application/xml" -d "<?xml version=\"1.0\" encoding=\"UTF-8\"?><AdditionModel>\t<Addends>1</Addends>\t<Addends>2</Addends>\t<Addends>3</Addends>\t<Addends>4</Addends>\t<Addends>5</Addends></AdditionModel>"
+```
 
 ## Using the Client
 
