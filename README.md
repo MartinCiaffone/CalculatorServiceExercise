@@ -222,8 +222,8 @@ Packages
 - Nuget System.Net.Http.Json
 
 ### Implementation details
-**We will not detail the implementation for the client in this first version since it is not the central object of the exercise.
-It is a very simple web application made using Blazor components. In the Home you can see the use of the components (one per operation) combined in a common page.**
+*We will not detail the implementation for the client in this first version since it is not the central object of the exercise.
+It is a very simple web application made using Blazor components. On the Home page you can see the use of the components (one per operation) combined in a common page.*
 
 ## CalculatorService.Library
 
@@ -236,8 +236,8 @@ Packages
 It has an associated project ClientService.LibraryTests
 
 ### Implementation details
-**This library is very small, with two classes, one for math operations and one for implementing the Journal.
-The Journal is not persistent. It has been implemented as an in memory List<T>**
+*This library is very small, with two classes, one for math operations and one for implementing the Journal.
+The Journal is not persistent. It has been implemented as an in memory List<T>*
 
 ## ClientService.LibraryTests
 
@@ -255,4 +255,4 @@ Project References
 - ClientService.Library
 
 ### Implementation details
-*Here we provide some unit tests on the calculation methods as a testing example.
+*Here we provide some unit tests on the calculation methods as a testing example.*
