@@ -2,7 +2,7 @@
 
 HTTP/REST­based &#39;Calculator Service&#39; capable of some basic arithmetic operations, like add, subtract, square, etc. along with a history.
 
-NOTE: This is an exercise designed to demonstrate some development skills.
+NOTE: *This is an exercise designed to demonstrate some development skills.*
 
 The document **2012.01.15-Code.Challenge-Calculator.Service.pdf** has the exercise description.
 
@@ -43,15 +43,15 @@ For testing/local/development you can set the Startup Project to multiple.
 3. Expand the  **Common Properties**  node, and choose  **Startup Project**.
 4. Choose the  **Multiple Startup Projects**  option and set the actions like this:
 
-![](RackMultipart20210330-4-1w5j0cm_html_87c19960e491f1c2.png)
+![MultipleStartupProjects](https://user-images.githubusercontent.com/78768310/113060620-450ca080-9187-11eb-8305-b3062fb64d26.png)
 
 Then it can be started …
 
-![](RackMultipart20210330-4-1w5j0cm_html_8806c13166b20066.png)
+![Start](https://user-images.githubusercontent.com/78768310/113061219-1a6f1780-9188-11eb-8d37-c582d0b4ebeb.png)
 
 Two browser (default) instances will be opened, one for the client and one for the server.
 
-![](RackMultipart20210330-4-1w5j0cm_html_49377bf4be19246.png)
+![ServerAndClient](https://user-images.githubusercontent.com/78768310/113061216-19d68100-9188-11eb-95ec-bf16e08186d5.png)
 
 The port definition for the client can be found in:
 
@@ -67,27 +67,30 @@ Properties folder, launchSettings.json file
 
 On development environment (auto-detected) the server has the Swagger generated interface to test the API.
 
-Note: CalculatorService.Server accepts JSON and XML encodings as input. And returns JSON.
+Note: *CalculatorService.Server accepts JSON and XML encodings as input. And returns JSON.*
 
 The CalculatorService.ClientB uses JSON.
 
 You can test XML encoding from the Swagger interface with the Request Body encoding format selector:
 
-![](RackMultipart20210330-4-1w5j0cm_html_7e54f37e8b733a77.png)
+![TestXML](https://user-images.githubusercontent.com/78768310/113061212-193dea80-9188-11eb-808b-158235589343.png)
 
 Another way to test the API is using curl, example:
 
+
+```
 curl -X POST &quot;http://localhost:16834/calculator/add&quot; -H &quot;accept: \*/\*&quot; -H &quot;Content-Type: application/xml&quot; -d &quot;\&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?\&gt;\&lt;AdditionModel\&gt;\t\&lt;Addends\&gt;1\&lt;/Addends\&gt;\t\&lt;Addends\&gt;2\&lt;/Addends\&gt;\t\&lt;Addends\&gt;3\&lt;/Addends\&gt;\t\&lt;Addends\&gt;4\&lt;/Addends\&gt;\t\&lt;Addends\&gt;5\&lt;/Addends\&gt;\&lt;/AdditionModel\&gt;&quot;
+```
 
 ## Using the Client
 
 The client is a web application that performs requests to the server HTTP service.
 
-Home
+### Home
 
 The five basic arithmetic operations supported by the server are present at the default/home page (A.K.A. &quot;Calculations&quot; in the menu)
 
-NOTE: Use only integer values. Decimal number are not allowed.
+NOTE: *Use only integer values. Decimal number are not allowed.*
 
 For the Addition operation input more than one number and put the &quot;+&quot; sign in between. Sample: 1+3+5
 
@@ -101,7 +104,7 @@ Is true that for a better performance validation than can be done on the client 
 
 The other two menu options (Journal and Settings) works as follows:
 
-Journal /Journal
+### Journal /Journal
 
 It has an input box witch is pre-filled with the actual Id sent from the client to the server as part of the request header and used to identify all the requests.
 
@@ -111,11 +114,11 @@ The &quot;New Journal Id&quot; button generates a new id to be used on the succe
 
 Journal entries are associated with the ID, and it cannot be retrieved without that information.
 
-NOTE: the server adds the IP from the client to the entries, just in case of two different clients using the same ID.
+NOTE: *the server adds the IP from the client to the entries, just in case of two different clients using the same ID.*
 
 The Journal contents are cleared every time the server application is re-started.
 
-Settings /Setings
+### Settings /Setings
 
 Can be used to change the URL of the service. Its initial value is prefilled for development and for production environments.
 
