@@ -55,15 +55,11 @@ Two browser (default) instances will be opened, one for the client and one for t
 
 The port definition for the client can be found in:
 
-Properties folder, launchSettings.json file
-
-&quot;applicationUrl&quot;: [http://localhost:30485](http://localhost:30485/)
+Properties folder, launchSettings.json file `"applicationUrl": "http://localhost:30485/"`
 
 The port definition for the server can be found in:
 
-Properties folder, launchSettings.json file
-
-&quot;applicationUrl&quot;: &quot;http://localhost:16834/&quot;
+Properties folder, launchSettings.json file `"applicationUrl": "http://localhost:16834/"`
 
 On development environment (auto-detected) the server has the Swagger generated interface to test the API.
 
@@ -79,8 +75,7 @@ Another way to test the API is using curl, example:
 
 
 ```
-curl -X POST &quot;http://localhost:16834/calculator/add&quot; -H &quot;accept: \*/\*&quot; -H &quot;Content-Type: application/xml&quot; -d &quot;\&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?\&gt;\&lt;AdditionModel\&gt;\t\&lt;Addends\&gt;1\&lt;/Addends\&gt;\t\&lt;Addends\&gt;2\&lt;/Addends\&gt;\t\&lt;Addends\&gt;3\&lt;/Addends\&gt;\t\&lt;Addends\&gt;4\&lt;/Addends\&gt;\t\&lt;Addends\&gt;5\&lt;/Addends\&gt;\&lt;/AdditionModel\&gt;&quot;
-```
+curl -X POST "http://localhost:16834/calculator/add" -H  "accept: */*" -H  "Content-Type: application/xml" -d "<?xml version=\"1.0\" encoding=\"UTF-8\"?><AdditionModel>\t<Addends>1</Addends>\t<Addends>2</Addends>\t<Addends>3</Addends>\t<Addends>4</Addends>\t<Addends>5</Addends></AdditionModel>"```
 
 ## Using the Client
 
@@ -184,4 +179,4 @@ Packages
 
 Project References
 
-- Library
+- ClientService.Library
